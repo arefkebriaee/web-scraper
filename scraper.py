@@ -1,19 +1,16 @@
 import requests
+from bs4 import BeautifulSoup
+
 
 # ---------------------------------------------------------------
-# send parameters to url.
-# we can send parameters inside request by 'params' argument.
-# for example we send multiple parameters to server and server return response.
-# params must be dictionery.
+# use BeautifulSoup to access easily to specific part of web page.
+# in this example we can access first h1 tag of web page by find method.
+# also we can access to all h1 tags by findAll or find_all methods
 
-url = 'http://www.webscrapingfordatascience.com/calchttp/'
+url = 'https://en.wikipedia.org/wiki/List_of_Game_of_Thrones_episodes'
 
-parameters = {
-    'a': 7,
-    'b': 3,
-    'op': '+'
-}
-
-my_request = requests.get(url, params=parameters)
-
-print(my_request.text)
+my_request = requests.get(url)
+content = BeautifulSoup(my_request.text, 'html.parser')
+print(content.find('h1'))
+print(content.find_all('h1'))
+print(content.findAll('h1'))
